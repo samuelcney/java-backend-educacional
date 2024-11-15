@@ -16,6 +16,7 @@ public class AlunoController {
     @Autowired
     private AlunosRepository repository;
 
+    @GetMapping
     public ResponseEntity<List<Aluno>> findAll(){
 
         return ResponseEntity.ok(this.repository.findAll());
@@ -39,7 +40,7 @@ public class AlunoController {
         return this.repository.save(aluno);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Aluno update(@RequestBody AlunoRequestDTO dto, @PathVariable Integer id){
         Aluno aluno = this.repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));   
@@ -49,5 +50,14 @@ public class AlunoController {
         aluno.setDataNascimento(dto.dataNascimento());
 
         return this.repository.save(aluno);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        Aluno aluno = this.repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
+
+        this.repository.delete(aluno);
+        return ResponseEntity.noContent().build();
     }
 }
