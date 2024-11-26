@@ -26,6 +26,8 @@ public class Turma {
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
     private Curso curso;
 
+
+
     public Integer getId() {
         return id;
     }
