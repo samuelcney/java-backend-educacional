@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name = "turmas")
 public class Turma {
@@ -26,7 +28,8 @@ public class Turma {
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
     private Curso curso;
 
-
+    @OneToMany(mappedBy = "matriculaPk.turma")
+    private List<Matricula> matriculas;
 
     public Integer getId() {
         return id;
@@ -58,5 +61,13 @@ public class Turma {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 }

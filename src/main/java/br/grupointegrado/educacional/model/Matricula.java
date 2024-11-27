@@ -2,43 +2,54 @@ package br.grupointegrado.educacional.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "matriculas")
 public class Matricula {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    MatriculaPK matriculaPK;
 
-    @ManyToOne
-    @JoinColumn(name = "aluno_id", referencedColumnName = "id")
-    private Aluno aluno;
+    @OneToMany(mappedBy = "matricula")
+    private List<Nota> notas;
 
-    @ManyToOne
-    @JoinColumn(name = "turma_id", referencedColumnName = "id")
-    private Turma turma;
-
-    public Integer getId() {
-        return id;
+    public MatriculaPK getMatriculaPK() {
+        return matriculaPK;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMatriculaPK(MatriculaPK matriculaPK) {
+        this.matriculaPK = matriculaPK;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public Aluno getAluno(){
+        return matriculaPK != null ? matriculaPK.getAluno() : null;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setAluno(Aluno aluno){
+        if(this.matriculaPK == null){
+            this.matriculaPK = new MatriculaPK();
+        }
+        this.matriculaPK.setAluno(aluno);
     }
 
-    public Turma getTurma() {
-        return turma;
+    public Turma getTurma(){
+        return matriculaPK != null ? matriculaPK.getTurma() : null;
     }
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
+    public void setTurma(Turma turma){
+        if(this.matriculaPK == null){
+            this.matriculaPK = new MatriculaPK();
+        }
+
+        this.matriculaPK.setTurma(turma);
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
     }
 }

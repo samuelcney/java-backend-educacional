@@ -2,6 +2,8 @@ package br.grupointegrado.educacional.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "disciplinas")
 public class Disciplina {
@@ -23,6 +25,9 @@ public class Disciplina {
     @ManyToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
+
+    @OneToMany(mappedBy = "disciplina")
+    private List<Nota> notas;
 
     public Integer getId() {
         return id;
@@ -64,5 +69,11 @@ public class Disciplina {
         this.professor = professor;
     }
 
+    public List<Nota> getNotas() {
+        return notas;
+    }
 
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
 }

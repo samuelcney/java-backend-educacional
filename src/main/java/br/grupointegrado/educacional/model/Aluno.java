@@ -3,6 +3,7 @@ package br.grupointegrado.educacional.model;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "alunos")
@@ -22,7 +23,11 @@ public class Aluno {
     private String matricula;
 
     @Column(name = "data_nascimento")
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
+
+    @OneToMany(mappedBy = "matriculaPk.aluno")
+    private List<Matricula> matriculas;
 
     public Integer getId() {
         return id;
@@ -62,5 +67,13 @@ public class Aluno {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 }
