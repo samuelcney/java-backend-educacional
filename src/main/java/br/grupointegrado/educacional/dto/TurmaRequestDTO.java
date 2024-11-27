@@ -1,6 +1,11 @@
 package br.grupointegrado.educacional.dto;
 
-import br.grupointegrado.educacional.model.Curso;
+import java.util.List;
 
-public record TurmaRequestDTO(int ano, int semestre, Integer curso_id) {
+public record TurmaRequestDTO(
+        int ano,
+        int semestre,
+        Integer curso_id,
+        List<MatriculaRequestDTO> matriculas
+) {
 }
