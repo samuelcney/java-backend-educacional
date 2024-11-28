@@ -25,6 +25,4 @@ public class DisciplinaController {
         return this.disciplinaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Disciplina não encontrada."));
     }
-
-    public Disciplina create(@RequestBody )
 }

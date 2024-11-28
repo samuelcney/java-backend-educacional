@@ -26,7 +26,7 @@ public class Aluno {
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
-    @OneToMany(mappedBy = "matriculaPk.aluno")
+    @OneToMany(mappedBy = "matriculaPK.aluno")
     private List<Matricula> matriculas;
 
     public Integer getId() {

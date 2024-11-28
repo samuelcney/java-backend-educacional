@@ -10,7 +10,7 @@ import java.util.List;
 public class Matricula {
 
     @EmbeddedId
-    MatriculaPK matriculaPK;
+    private MatriculaPK matriculaPK;
 
     @OneToMany(mappedBy = "matricula")
     @JsonIgnoreProperties("matricula")

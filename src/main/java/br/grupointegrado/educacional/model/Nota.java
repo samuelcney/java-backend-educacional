@@ -18,7 +18,10 @@ public class Nota {
     private Disciplina disciplina;
 
     @ManyToOne
-    @JoinColumn(name = "matricula_id", referencedColumnName = "id")
+    @JoinColumns({
+            @JoinColumn(name = "aluno_id", referencedColumnName = "aluno_id"),
+            @JoinColumn(name = "turma_id", referencedColumnName = "turma_id")
+    })
     private Matricula matricula;
 
     @Column(name = "nota", precision = 5, scale = 2)

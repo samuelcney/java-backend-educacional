@@ -28,7 +28,7 @@ public class Turma {
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
     private Curso curso;
 
-    @OneToMany(mappedBy = "matriculaPk.turma")
+    @OneToMany(mappedBy = "matriculaPK.turma")
     private List<Matricula> matriculas;
 
     public Integer getId() {
