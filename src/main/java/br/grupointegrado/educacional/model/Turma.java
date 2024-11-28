@@ -21,7 +21,7 @@ public class Turma {
     @NotNull
     @Min(1)
     @Max(2)
-    @Column()
+    @Column
     private int semestre;
 
     @ManyToOne
