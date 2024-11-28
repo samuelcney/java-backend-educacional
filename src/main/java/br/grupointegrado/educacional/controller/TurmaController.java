@@ -37,7 +37,7 @@ public class TurmaController {
     public Turma create(@RequestBody TurmaRequestDTO dto){
 
         Curso curso = cursoRepository.findById(dto.curso_id())
-                .orElseThrow(()-> new IllegalArgumentException("Turma não encontrada"));
+                .orElseThrow(()-> new IllegalArgumentException("Curso não encontrado"));
 
         Turma turma = new Turma();
         turma.setAno(dto.ano());

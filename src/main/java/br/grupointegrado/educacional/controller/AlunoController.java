@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/alunos")
@@ -34,7 +35,7 @@ public class AlunoController {
         Aluno aluno = new Aluno();
         aluno.setNome(dto.nome());
         aluno.setEmail(dto.email());
-        aluno.setMatricula(dto.matricula());
+        aluno.setMatricula(dto.matriculaUUID());
         aluno.setDataNascimento(dto.dataNascimento());
 
         return this.repository.save(aluno);
@@ -46,7 +47,7 @@ public class AlunoController {
                 .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));   
         aluno.setNome(dto.nome());
         aluno.setEmail(dto.email());
-        aluno.setMatricula(dto.matricula());
+        aluno.setMatricula(aluno.getMatricula());
         aluno.setDataNascimento(dto.dataNascimento());
 
         return this.repository.save(aluno);

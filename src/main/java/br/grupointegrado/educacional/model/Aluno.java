@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "alunos")
@@ -75,5 +76,10 @@ public class Aluno {
 
     public void setMatriculas(List<Matricula> matriculas) {
         this.matriculas = matriculas;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, email);
     }
 }
