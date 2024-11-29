@@ -1,8 +1,10 @@
 package br.grupointegrado.educacional.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,10 +27,12 @@ public class Aluno {
 
     @Column(name = "data_nascimento")
     @Temporal(TemporalType.DATE)
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "matriculaPK.aluno")
+    @JsonBackReference
     private List<Matricula> matriculas;
+
 
     public Integer getId() {
         return id;
@@ -62,11 +66,11 @@ public class Aluno {
         this.matricula = matricula;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
