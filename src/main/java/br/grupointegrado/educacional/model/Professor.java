@@ -25,8 +25,8 @@ public class Professor {
     @Column
     private String especialidade;
 
-    @OneToMany(mappedBy = "professor")
-    @JsonIgnoreProperties("professor")
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("turmas")
     private List<Disciplina> disciplinas;
 
 

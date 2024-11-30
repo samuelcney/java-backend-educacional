@@ -27,9 +27,16 @@ public class AlunoController {
     }
 
     @GetMapping("/{id}")
-    public Aluno findById(@PathVariable Integer id){
-        return this.repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado"));
+    public ResponseEntity<?> findById(@PathVariable Integer id){
+        Aluno aluno = this.repository.findById(id)
+                .orElse(null);
+
+                if(aluno == null){
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                            .body("Aluno não encontrado!");
+                }
+
+        return ResponseEntity.ok(aluno);
     }
 
     @PostMapping
@@ -44,9 +51,14 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aluno> update(@RequestBody AlunoRequestDTO dto, @PathVariable Integer id){
+    public ResponseEntity<?> update(@RequestBody AlunoRequestDTO dto, @PathVariable Integer id){
         Aluno aluno = this.repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));   
+                .orElse(null);
+
+        if(aluno == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Aluno não encontrado!");
+        }
         aluno.setNome(dto.nome());
         aluno.setEmail(dto.email());
         aluno.setMatricula(aluno.getMatricula());

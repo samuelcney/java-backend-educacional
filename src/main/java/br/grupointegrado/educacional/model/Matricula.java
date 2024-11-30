@@ -13,10 +13,6 @@ public class Matricula {
     @EmbeddedId
     private MatriculaPK matriculaPK;
 
-    @OneToMany(mappedBy = "matricula")
-    @JsonManagedReference
-    private List<Nota> notas;
-
     public MatriculaPK getMatriculaPK() {
         return matriculaPK;
     }
@@ -46,13 +42,5 @@ public class Matricula {
         }
 
         this.matriculaPK.setTurma(turma);
-    }
-
-    public List<Nota> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(List<Nota> notas) {
-        this.notas = notas;
     }
 }

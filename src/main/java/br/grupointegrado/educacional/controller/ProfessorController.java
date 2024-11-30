@@ -5,6 +5,7 @@ import br.grupointegrado.educacional.model.Aluno;
 import br.grupointegrado.educacional.model.Professor;
 import br.grupointegrado.educacional.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,16 @@ public class ProfessorController {
     }
 
     @GetMapping("/{id}")
-    public Professor findById(@PathVariable Integer id){
-        return this.repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Professor não encontrado"));
+    public ResponseEntity<?> findById(@PathVariable Integer id){
+        Professor professor = this.repository.findById(id)
+                .orElse(null);
+
+        if(professor == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Aluno não encontrado!");
+        }
+
+        return ResponseEntity.ok(professor);
 
     }
 
@@ -42,15 +50,20 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public Professor update(@RequestBody ProfessorRequestDTO dto, @PathVariable Integer id){
+    public ResponseEntity<?> update(@RequestBody ProfessorRequestDTO dto, @PathVariable Integer id){
         Professor professor = this.repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Professor não encontrado"));
+                .orElse(null);
+
+        if(professor == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Aluno não encontrado!");
+        }
         professor.setNome(dto.nome());
         professor.setEmail(dto.email());
         professor.setTelefone(dto.telefone());
         professor.setEspecialidade(dto.especialidade());
 
-        return this.repository.save(professor);
+        return ResponseEntity.ok(professor);
     }
 
     @DeleteMapping("/{id}")

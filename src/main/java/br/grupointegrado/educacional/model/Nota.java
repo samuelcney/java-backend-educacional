@@ -3,7 +3,7 @@ package br.grupointegrado.educacional.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "notas")
@@ -28,8 +28,7 @@ public class Nota {
     private BigDecimal nota;
 
     @Column(name = "data_lancamento")
-    @Temporal(TemporalType.DATE)
-    private Date dataLancamento;
+    private LocalDate dataLancamento;
 
     public Integer getId() {
         return id;
@@ -63,11 +62,11 @@ public class Nota {
         this.nota = nota;
     }
 
-    public Date getDataLancamento() {
+    public LocalDate getDataLancamento() {
         return dataLancamento;
     }
 
-    public void setDataLancamento(Date dataLancamento) {
+    public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
 }

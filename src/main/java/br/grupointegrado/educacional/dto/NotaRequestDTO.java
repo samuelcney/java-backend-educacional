@@ -1,12 +1,12 @@
 package br.grupointegrado.educacional.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
-public record NotaDTO(
+public record NotaRequestDTO(
         Integer disciplina_id,
         Integer matricula_id,
         BigDecimal nota,
-        Date dataLancamento
+        LocalDate dataLancamento
 ) {
 }
