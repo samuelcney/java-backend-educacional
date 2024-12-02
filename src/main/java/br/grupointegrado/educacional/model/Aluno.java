@@ -1,5 +1,6 @@
 package br.grupointegrado.educacional.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -28,7 +29,7 @@ public class Aluno {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "matriculaPK.aluno")
-    @JsonIgnoreProperties("aluno")
+    @JsonBackReference
     private List<Matricula> matriculas;
 
     public Integer getId() {

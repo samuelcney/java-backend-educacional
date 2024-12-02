@@ -1,5 +1,7 @@
 package br.grupointegrado.educacional.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -29,6 +31,7 @@ public class Turma {
     private Curso curso;
 
     @OneToMany(mappedBy = "matriculaPK.turma")
+    @JsonManagedReference
     private List<Matricula> matriculas;
 
     public Integer getId() {
