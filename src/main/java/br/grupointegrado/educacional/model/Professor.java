@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "professores")
+@JsonIgnoreProperties({"disciplinas"})
 public class Professor {
 
     @Id

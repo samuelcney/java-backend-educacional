@@ -2,11 +2,13 @@ package br.grupointegrado.educacional.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.websocket.OnError;
 
 import java.util.List;
 
 @Entity
 @Table(name = "disciplinas")
+@JsonIgnoreProperties({"curso.id", "curso.codigo", "curso.turmas", "curso.cargaHoraria", "professor.disciplinas"})
 public class Disciplina {
 
     @Id
@@ -16,7 +18,7 @@ public class Disciplina {
     @Column
     private String nome;
 
-    @Column
+    @Column(unique = true)
     private String codigo;
 
     @ManyToOne
