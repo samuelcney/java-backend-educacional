@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/professores")
@@ -30,8 +31,8 @@ public class ProfessorController {
                 .orElse(null);
 
         if(professor == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Aluno não encontrado!");
+            return ResponseEntity.status(404)
+                    .body(Map.of("message", "Professor não encontrado"));
         }
 
         return ResponseEntity.ok(professor);
@@ -39,14 +40,16 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public Professor create(@RequestBody ProfessorRequestDTO dto){
+    public ResponseEntity<Professor> create(@RequestBody ProfessorRequestDTO dto){
         Professor professor = new Professor();
         professor.setNome(dto.nome());
         professor.setEmail(dto.email());
         professor.setTelefone(dto.telefone());
         professor.setEspecialidade(dto.especialidade());
 
-        return this.repository.save(professor);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(this.repository.save(professor));
     }
 
     @PutMapping("/{id}")
@@ -55,23 +58,26 @@ public class ProfessorController {
                 .orElse(null);
 
         if(professor == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Aluno não encontrado!");
+            return ResponseEntity.status(404)
+                    .body(Map.of("message", "Professor não encontrado"));
         }
+
         professor.setNome(dto.nome());
         professor.setEmail(dto.email());
         professor.setTelefone(dto.telefone());
         professor.setEspecialidade(dto.especialidade());
 
-        return ResponseEntity.ok(professor);
+        return ResponseEntity.ok(this.repository.save(professor));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        Professor professor = this.repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Professor não encontrado"));
+    public ResponseEntity<?> delete(@PathVariable Integer id){
 
-        this.repository.delete(professor);
+        if(!this.repository.existsById(id)){
+            return ResponseEntity.status(404)
+                    .body(Map.of("message", "Professor não encontrado"));
+        }
+        this.repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

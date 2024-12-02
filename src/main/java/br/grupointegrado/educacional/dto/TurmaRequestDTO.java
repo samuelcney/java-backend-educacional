@@ -5,7 +5,6 @@ import java.util.List;
 public record TurmaRequestDTO(
         int ano,
         int semestre,
-        Integer curso_id,
-        List<MatriculaRequestDTO> matriculas
+        Integer curso_id
 ) {
 }

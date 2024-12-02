@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -31,10 +32,9 @@ public class AlunoController {
         Aluno aluno = this.repository.findById(id)
                 .orElse(null);
 
-                if(aluno == null){
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                            .body("Aluno não encontrado!");
-                }
+        if(aluno == null){
+            return ResponseEntity.status(404).body(Map.of("message", "Aluno não encontrado"));
+        }
 
         return ResponseEntity.ok(aluno);
     }
@@ -56,23 +56,30 @@ public class AlunoController {
                 .orElse(null);
 
         if(aluno == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Aluno não encontrado!");
+            return ResponseEntity.status(404).body(Map.of("message", "Aluno não encontrado"));
         }
-        aluno.setNome(dto.nome());
-        aluno.setEmail(dto.email());
-        aluno.setMatricula(aluno.getMatricula());
-        aluno.setDataNascimento(dto.dataNascimento());
+
+        if (dto.nome() != null) {
+            aluno.setNome(dto.nome());
+        }
+        if (dto.email() != null) {
+            aluno.setEmail(dto.email());
+        }
+        if (dto.dataNascimento() != null) {
+            aluno.setDataNascimento(dto.dataNascimento());
+        }
 
         return ResponseEntity.ok(this.repository.save(aluno));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        Aluno aluno = this.repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND ,"Aluno não encontrado"));
+    public ResponseEntity<?> delete(@PathVariable Integer id){
 
-        this.repository.delete(aluno);
+        if(!this.repository.existsById(id)){
+            return ResponseEntity.status(404).body(Map.of("message", "Aluno não encontrado"));
+        }
+
+        this.repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

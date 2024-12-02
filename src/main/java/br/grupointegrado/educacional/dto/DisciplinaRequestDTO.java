@@ -8,7 +8,6 @@ public record DisciplinaRequestDTO(
         String nome,
         String codigo,
         Integer curso_id,
-        Integer professor_id,
-        List<Nota> notas
+        Integer professor_id
 ){
 }
