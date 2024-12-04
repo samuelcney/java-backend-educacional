@@ -85,6 +85,7 @@ public class TurmaController {
         return ResponseEntity.ok(turma);
     }
 
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id){
         if(!this.turmaRepository.existsById(id)){
             return ResponseEntity.status(404).body(Map.of("message", "Turma não encontrada"));

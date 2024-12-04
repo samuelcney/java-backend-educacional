@@ -43,7 +43,7 @@ public class CursoController {
 
         curso.setNome(dto.nome());
         curso.setCodigo(dto.codigo());
-        curso.setCarga_horaria(dto.carga_horaria());
+        curso.setCargaHoraria(dto.carga_horaria());
 
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.repository.save(curso));
@@ -61,11 +61,12 @@ public class CursoController {
 
         curso.setNome(dto.nome());
         curso.setCodigo(dto.codigo());
-        curso.setCarga_horaria(dto.carga_horaria());
+        curso.setCargaHoraria(dto.carga_horaria());
 
         return ResponseEntity.ok(this.repository.save(curso));
     }
 
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id){
 
         if(!this.repository.existsById(id)) {

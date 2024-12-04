@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface MatriculaRepository extends JpaRepository<Matricula, MatriculaPK> {
+public interface MatriculaRepository extends JpaRepository<Matricula, Integer> {
 
     Optional<Matricula> findByMatriculaPK_AlunoAndMatriculaPK_Turma(Aluno aluno, Turma turma);
 }

@@ -1,5 +1,6 @@
 package br.grupointegrado.educacional.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.websocket.OnError;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "disciplinas")
-@JsonIgnoreProperties({"curso.id", "curso.codigo", "curso.turmas", "curso.cargaHoraria", "professor.disciplinas"})
+@JsonIgnoreProperties({"curso", "professor"})
 public class Disciplina {
 
     @Id
@@ -23,14 +24,16 @@ public class Disciplina {
 
     @ManyToOne
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
+    @JsonIgnore
     private Curso curso;
 
     @ManyToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
+    @JsonIgnore
     private Professor professor;
 
     @OneToMany(mappedBy = "disciplina")
-    @JsonIgnoreProperties("disciplina")
+    @JsonIgnore
     private List<Nota> notas;
 
     public Integer getId() {

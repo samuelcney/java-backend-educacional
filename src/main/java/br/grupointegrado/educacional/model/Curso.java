@@ -1,5 +1,6 @@
     package br.grupointegrado.educacional.model;
 
+    import com.fasterxml.jackson.annotation.JsonIgnore;
     import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     import jakarta.persistence.*;
 
@@ -24,11 +25,11 @@
         private Integer cargaHoraria;
 
         @OneToMany(mappedBy = "curso")
-        @JsonIgnoreProperties("curso")
+        @JsonIgnore
         private List<Turma> turmas;
 
         @OneToMany(mappedBy = "curso")
-        @JsonIgnoreProperties("curso")
+        @JsonIgnore
         private List<Disciplina> disciplinas;
 
         public Integer getId() {
@@ -55,11 +56,11 @@
             this.codigo = codigo;
         }
 
-        public Integer getCarga_horaria() {
+        public Integer getCargaHoraria() {
             return cargaHoraria;
         }
 
-        public void setCarga_horaria(Integer carga_horaria) {
+        public void setCargaHoraria(Integer carga_horaria) {
             this.cargaHoraria = carga_horaria;
         }
 

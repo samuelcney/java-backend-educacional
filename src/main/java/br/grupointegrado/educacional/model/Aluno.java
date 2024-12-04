@@ -1,6 +1,7 @@
 package br.grupointegrado.educacional.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "alunos")
+@JsonIgnoreProperties({"matriculas"})
 public class Aluno {
 
     @Id
@@ -30,6 +32,7 @@ public class Aluno {
 
     @OneToMany(mappedBy = "matriculaPK.aluno")
     @JsonBackReference
+    @JsonIgnore
     private List<Matricula> matriculas;
 
     public Integer getId() {

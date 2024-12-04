@@ -1,6 +1,8 @@
 package br.grupointegrado.educacional.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,20 +15,23 @@ public class Nota {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "disciplina_id", referencedColumnName = "id")
+    @JsonIgnore
     private Disciplina disciplina;
 
+    @NotNull
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "aluno_id", referencedColumnName = "aluno_id"),
-            @JoinColumn(name = "turma_id", referencedColumnName = "turma_id")
-    })
+    @JoinColumn(name = "matricula_id", referencedColumnName = "id")
+    @JsonIgnore
     private Matricula matricula;
 
+    @NotNull
     @Column(name = "nota", precision = 5, scale = 2)
     private BigDecimal nota;
 
+    @NotNull
     @Column(name = "data_lancamento")
     private LocalDate dataLancamento;
 
